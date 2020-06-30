@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.mapper.UsersMapper">
+    <resultMap id="UserMap" type="com.aaa.entity.Users">
+        <result property="uId" column="u_id"></result>
+        <result property="uName" column="u_name"></result>
+        <result property="uAge" column="u_age"></result>
+        <result property="uPassword" column="u_password"></result>
+    </resultMap>
+
+    <select id="findAll" resultMap="UserMap">
+        select * from users;
+    </select>
+
+    <insert id="insert" parameterType="com.aaa.entity.Users" useGeneratedKeys="true" keyColumn="u_id" keyProperty="uId">
+        insert into users(u_name, u_age, u_password) values (#{uName},#{uAge},#{uPassword});
+    </insert>
+
+    <select id="findOne" resultMap="UserMap" parameterType="com.aaa.entity.Users">
+        select * from users where u_id = #{uId};
+    </select>
+
+    <update id="update" parameterType="com.aaa.entity.Users">
+        update users set u_name = #{uName},u_age=#{uAge},u_password=#{uPassword} where u_id=#{uId};
+    </update>
+
+    <delete id="delete" parameterType="com.aaa.entity.Users">
+        delete from users where u_id=#{uId}
+    </delete>
+</mapper>
